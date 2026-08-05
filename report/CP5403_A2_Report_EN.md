@@ -2,8 +2,8 @@
 
 **CP5403 Large Language Models — Assessment 2 draft**  
 **Student:** [Your name / student number]  
-**Project repository:** `https://github.com/[your-username]/[your-repository-name]`  
-**Word count:** approximately 3,100 words excluding references and appendices (verify with the final submission template).
+**Project repository:** `https://github.com/ZiyuCao421/CP5403LLM`  
+**Word count:** verify in the final Word template; references, tables, and appendices must be treated according to the course instructions.
 
 ## Abstract
 
@@ -49,7 +49,7 @@ Dense retrieval is useful when the query and document express similar ideas with
 
 ### 3.1 Choice of data sources
 
-The knowledge base contains 40 JSON records describing influential LLM-related papers. Each record includes a title, authors, year, and abstract. The collection includes papers such as *Attention Is All You Need*, BERT, LoRA, QLoRA, RAG, Self-RAG, LLaMA, and DeepSeek-R1. The corpus is deliberately small. This makes it easy to inspect during a demonstration, but it also means that corpus coverage is a central limitation rather than an implementation detail. **Before final submission, add the original source URL or bibliographic reference for the public metadata/abstract of each curated paper record, or state clearly how the 40 records were collected and checked.**
+The knowledge base contains 40 JSON records describing influential LLM-related papers. Each record includes a title, authors, year, and abstract. The collection includes papers such as *Attention Is All You Need*, BERT, LoRA, QLoRA, RAG, Self-RAG, LLaMA, and DeepSeek-R1. The corpus is deliberately small. This makes it easy to inspect during a demonstration, but it also means that corpus coverage is a central limitation rather than an implementation detail. The curation scope and remaining provenance limitation are documented in `docs/DATA_PROVENANCE.md`: the final submission should include a title-to-authoritative-source mapping for all 40 records, rather than treating the JSON file itself as an original scholarly source.
 
 ### 3.2 Models and retrieval stack
 
@@ -132,11 +132,13 @@ The project changed my understanding of RAG. Initially, it was tempting to descr
 
 There are also methodological limits. The corpus has only 40 papers, the generated evaluation set is small, and several measures are lexical proxies rather than human judgements of truth. Latencies are generation-only measurements. The current prompt does not force formal citations, and the system does not yet calculate a calibrated retrieval threshold. These limitations should be reported openly rather than hidden, because they identify concrete next steps.
 
-### Presentation peer-feedback reflection [complete after Week 9/10]
+### Week 9 draft feedback and the resulting evaluation requirement
 
-The final presentation must include a reflection on peer feedback. Do not invent this information before the seminar. Replace the paragraph below after the draft presentation:
+The Week 9 draft discussion raised two precise questions: whether a prompt about a paper outside the 40-paper corpus can trigger an unsupported answer, and whether the system will appropriately abstain when asked an unresolved question such as Goldbach's conjecture. The DPR experiment addresses the first question with an actual out-of-corpus paper. It shows that related retrieval is not equivalent to source coverage. The second question is retained as a pre-specified next test, not as a completed result: the current system has no calibrated similarity threshold or enforced abstention prompt, so it cannot guarantee that it will say “I do not know.” This feedback changed the evaluation criterion from merely comparing fluent answers to testing corpus coverage, retrieval evidence, and uncertainty behaviour separately. The presentation explains this learning process in detail; this report records the resulting system requirement and its current implementation boundary.
 
-> **[TO BE PERSONALISED]** During the Week [9/10] peer-feedback session, I received feedback that [specific feedback]. I changed [specific slide, explanation, visual, timing, or evaluation detail] because [reason]. This improved the presentation by [observable improvement for audience understanding, technical accuracy, or time management].
+### Presentation peer-feedback reflection
+
+During the Week 9 draft discussion, the teacher asked whether an out-of-corpus prompt could lead to hallucination and whether the model would say “I do not know” for an unsolved problem such as Goldbach's conjecture. I responded by adding the DPR out-of-corpus diagnostic, separating retrieval evidence from answer fluency, and specifying a Goldbach abstention test as the next evaluation. This improves the presentation because it replaces a generic claim that “RAG reduces hallucination” with a concrete explanation of corpus coverage, retrieval failure, and the missing abstention guardrail.
 
 ### Reproducibility and evaluation choices
 
@@ -158,7 +160,7 @@ This project built a runnable paper-question-answering RAG prototype using Qwen2
 
 ## AI-use declaration (adapt to the course policy)
 
-Generative AI was used as a drafting and language-editing aid. The system design, Colab execution, data inspection, result validation, and final factual checking were reviewed by the student. All reported runs and limitations should be retained only if the student can explain and reproduce them during the presentation.
+MiniMax and Codex were used for brainstorming, drafting, language editing, bilingual checking, and presentation planning. The student reviewed the system design, Colab execution, data inspection, result validation, citations, and final factual claims. All reported runs and limitations should be retained only if the student can explain and reproduce them during the presentation.
 
 ## References
 
