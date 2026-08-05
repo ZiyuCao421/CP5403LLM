@@ -2,7 +2,7 @@
 
 **课程：** CP5403 Large Language Models - Assessment 2  
 **学生：** [填写姓名与学号]  
-**GitHub 项目地址：** `https://github.com/[your-username]/[your-repository-name]`  
+**GitHub 项目地址：** `https://github.com/ZiyuCao421/CP5403LLM`  
 **用途：** 本文件用于核对英文报告 `CP5403_A2_Report_EN.md` 的事实与逻辑；正式提交应使用英文版并按最终 Word 模板检查词数和 APA 格式。
 
 ## 摘要
@@ -49,7 +49,7 @@ no-RAG 条件依赖 Qwen 参数中已经学习到的知识。对于 Transformer 
 
 知识库包含 40 条 JSON 论文记录。每条记录有 `title`、`authors`、`year` 和 `abstract` 字段，覆盖 Transformer、BERT、LoRA、QLoRA、RAG、Self-RAG、LLaMA 和 DeepSeek-R1 等主题。小语料库的优点是透明、可演示和可人工检查；缺点是语料覆盖范围成为系统的明确边界。
 
-**正式提交前必须补充：** 为 40 篇论文加入来源附录或 `sources.csv`，将每个标题链接到 ACL Anthology、arXiv、NeurIPS proceedings 或技术报告官方页，使摘要来源可审计。
+语料整理范围与现有的 provenance 限制已记录在 `docs/DATA_PROVENANCE.md`。正式提交前仍应为 40 篇论文加入来源附录或 `sources.csv`，将每个标题链接到 ACL Anthology、arXiv、NeurIPS proceedings 或技术报告官方页；JSON 本身不能代替原始学术来源。
 
 ### 3.2 Models and retrieval stack
 
@@ -108,11 +108,13 @@ DPR 的正确机制是使用 dual encoder 进行 dense passage retrieval，并�
 
 当前局限包括：只有 40 篇语料、测试集规模较小、keyword matching 只是代理指标、时间不包含完整端到端检索成本、prompt 不强制正式引用、且没有经过校准的 retrieval threshold。
 
-### Presentation peer-feedback reflection - final field
+### Week 9 draft feedback 对评测设计的影响
 
-以下内容必须在 Week 9/10 收到真实反馈后填写，不能由 AI 编造：
+Week 9 的讨论提出了两个具体问题：当 prompt 询问不在 40 篇范围内的论文时，系统是否会产生无依据回答；以及面对 Goldbach conjecture 这类尚未解决的问题时，系统是否会诚实地表示当前证据不足。DPR 实验已经以真实的语料库外论文回答第一个问题：相关论文被检索到并不代表存在目标论文证据。第二个问题保留为预先规定的后续测试，而不是已经完成的结果；当前系统没有经过校准的相似度阈值，也没有强制拒答 prompt，因此不能保证一定输出“我不知道”。这次反馈使评测从比较回答是否流畅，转向分别检查语料覆盖、检索证据和不确定性行为。PPT 将详细讲述这一学习过程；本报告只记录它对模型要求和评测设计造成的改变。
 
-> **[待本人填写]** 在 Week [9/10] 的同伴反馈中，我收到的具体反馈是：[反馈内容]。我修改了：[某页 slide、图表、技术解释、时间控制或评测说明]。修改原因是：[原因]。这一修改通过：[如何使听众更容易理解、提高技术准确性或改善时间控制] 改善了项目展示。
+### Presentation peer-feedback reflection
+
+在 Week 9 的 draft 讨论中，老师问了两个问题：语料库外的论文 prompt 是否可能诱发幻觉；面对 Goldbach conjecture 这类未解决问题时，模型会不会说“我不知道”。我据此加入了 DPR 语料库外诊断、把检索证据与回答流畅性分开评估，并将 Goldbach 的拒答行为列为下一项预先规定的测试。这一修改让展示不再笼统声称“RAG 减少幻觉”，而能具体解释语料覆盖、检索失败与拒答 guardrail 尚未实现的边界。
 
 ## 6. Conclusion
 
