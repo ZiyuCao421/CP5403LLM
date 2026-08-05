@@ -1,0 +1,27 @@
+{
+  "run_date": "2026-07-23",
+  "environment": "Google Colab",
+  "gpu": "T4",
+  "scope": "single-question end-to-end RAG smoke test",
+  "status": "CLOUD_SMOKE_PASS",
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "model_vram_mb_after_load": 2944,
+  "corpus_size": 40,
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "embedding_device": "cpu",
+  "index": "FAISS IndexFlatIP",
+  "top_k": 3,
+  "question": "Who introduced the Transformer architecture and in which year was the paper published?",
+  "expected_paper": "Attention Is All You Need",
+  "retrieved_titles": [
+    "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer",
+    "LoRA: Low-Rank Adaptation of Large Language Models",
+    "The Llama 3 Herd of Models"
+  ],
+  "retrieval_hit": 0.0,
+  "keyword_recall": 0.667,
+  "latency_seconds": 8.7,
+  "answer": "The Transformer architecture was introduced by Google researchers in 2017. The paper \"Attention Is All You Need\" by Vaswani et al., published in 2017, introduced the Transformer model, which became a foundational component in modern deep learning architectures, particularly in natural language processing tasks.",
+  "interpretation": "The pipeline completed, but retrieval missed the expected paper. The correct answer is therefore best attributed mainly to model parametric knowledge, not to successful retrieval.",
+  "claim_boundary": "This single run does not show that RAG outperforms no-RAG."
+}
